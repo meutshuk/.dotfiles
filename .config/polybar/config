@@ -1,0 +1,534 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #222
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40	
+green = #33cc33
+
+
+[modules/xmenu]
+menu-0 = item 1;command
+menu-0-0 = sub-item 1.1;command
+menu-0-1 = sub-item 1.2;command
+menu-0-2 = sub-item 1.3;command
+menu-1 = item 2;command
+menu-1-0 = sub-item 2.1;command
+menu-1-1 = sub-item 2.2;command
+
+
+[bar/bottom]
+width = 100%
+height = 27
+radius = 6.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+bottom = true
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = Weather Icons:size=12;1
+font-4 = Font Awesome 5 Free Solid:style=Solid
+
+modules-right =pulseaudio1 backlight1 memory2 battery1 network1
+modules-left = name openweathermap
+modules-center = home root pacman-update aur-update
+
+
+[bar/example]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 27
+;offset-x = 1%
+;offset-y = 1%
+radius = 6.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = Weather Icons:size=12;1
+font-4 = Font Awesome 5 Free Solid:style=Solid
+
+modules-left =i3
+modules-center = xwindow
+modules-right = backlight volume xkeyboard memory cpu wlan  battery temperature date powermenu
+
+;modules-left = bspwm i3
+;modules-center = xwindow
+;modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
+
+
+
+tray-position =right 
+tray-padding = 2
+;tray-transparent = true
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+ws-icon-0=1;Browser
+ws-icon-1=2;
+ws-icon-2=3;3
+ws-icon-3=4;
+ws-icon-4=5;
+ws-icon-5=6;6
+ws-icon-6=7;7
+ws-icon-7=8;Music
+
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+label-focused = %icon%
+label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+label-unfocused =%name% %icon%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+
+label-visible =%icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+label-urgent =%icon%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f90000
+label = %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 1
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+label =%{F#4bffdc}%{F-} %percentage_used%% 
+
+
+
+[module/wlan]
+type = internal/network
+interface = wlp57s0
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-underline = #9f78e1
+label-connected =%{F#9f78e1}%{F-} %essid% %{F#0f0}%local_ip%
+
+format-disconnected = <label-disconnected>
+label-disconnected = 
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = %m-%d
+date-alt = " %Y-%m-%d"
+
+time = %l:%M %p
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label =%{F#555} %{F-} %date% %{F#555}%{F-} %time%
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+;time-format = %H:%M
+format-charging = <label-charging>
+format-charging-underline = #34abeb
+label-charging = %{F#34abeb}%{F-} %percentage%%
+
+format-discharging = <label-discharging>
+label-discharging = %{F#eb3455}%{F-} %percentage_raw%% %time% 
+format-discharging-underline = #eb3455
+
+format-full-prefix = %{F#33cc33}""%{F-}
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${colors.green}
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+interval=2
+warn-temperature = 70
+
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
+
+format = <label>
+format-underline = #16de91
+format-warn = <label-warn>
+format-warn-underline = #f50a4d
+
+label = %{F#16de91}%{F-} %temperature%
+label-warn = %{F#f50a4d}I'm Baking YOU BITCH%{F-} %temperature%
+label-warn-foreground = ${colors.secondary}
+
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+expand-right = false
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close = X
+label-close-foreground = ${colors.secondary}
+label-separator = |  
+label-separator-foreground = #eb8634
+
+menu-0-0 = reboot  
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off  
+menu-0-1-exec = menu-open-2
+ 
+menu-1-0 = cancel  
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot 
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off 
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel 
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+
+[module/openweathermap]
+type = custom/script
+exec =~/.config/polybar/openweathermap-detailed.sh
+interval = 10
+
+format-prefix =" "
+format-prefix-foreground = #3ec13f
+format-underline = #3ec13f
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+format = <label><bar>
+
+label = %percentage%%
+
+[module/network1]
+type = internal/network
+interface = wlp57s0
+interval =1
+
+format-connected=<label-connected>
+label-connected-underline = #9f78e1
+label-connected =%{F#0f0}%{F-} %signal% %{F#9f78e1}%{F-} %upspeed:6:10% %{F#9f78e1}%{F-} %downspeed:6:10%
+
+
+
+
+
+[module/root]
+type = internal/fs
+
+;mountpoint to display
+mount-0 = /
+
+interval = 5
+format-mounted = <label-mounted>
+label-mounted =%{F#00ff00}%{F-} %free% / %total% 
+
+
+
+
+
+
+[module/home]
+type= internal/fs
+
+mount-0 = /home
+interval =5
+
+format-mounted= <label-mounted>
+label-mounted= %free% / %total%
+
+
+
+
+
+
+[module/battery1]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging = <label-charging>
+format-charging-underline = #34abeb
+label-charging =%{F#34abeb}%{F-} %consumption% kWh %{F#34abeb} %{F-} %time%
+
+format-discharging = <label-discharging>
+label-discharging =%{F#eb3455}%{F-} %consumption% kWh
+format-discharging-underline = #eb3455
+
+format-full-prefix = %{F#33cc33}""%{F-}
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${colors.green}
+
+
+
+
+[module/name]
+type=custom/text
+content-background = ${colors.background}
+content-foreground = #ffffff
+content =Utshuk Raj Dhamala
+
+
+
+
+
+[module/backlight1]
+type = internal/backlight
+
+;Use $ ls -1 /sys/class/backlight/ to view available cards
+card = intel_backlight
+format=<label>
+
+label= %percentage%
+
+
+
+
+[module/memory2]
+type=internal/memory
+interval = 1
+
+format=<label>
+label =  %gb_free% Free
+
+
+
+
+[module/pulseaudio1]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+use-ui-max = true
+interval = 3
+format-volume = <label-volume>
+
+label-volume = %percentage:4%
+label-muted = 
+
+
+[module/pacman-update]
+type = custom/script
+exec = pacman -Qu | wc -l
+interval = 1000
+
+label = Repo: %output%
+format-foreground=${colors.foreground}
+format-background=${colors.background} 
+format-prefix=" "
+format-underline=#ffbb00
+
+
+
+
+[module/aur-update]
+type = custom/script
+exec = ~/.config/polybar/aur-update.sh
+interval = 600
+
+format-prefix =  AUR:
+format-underline = #cf8f42
+; vim:ft=dosini
