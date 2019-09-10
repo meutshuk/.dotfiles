@@ -527,7 +527,7 @@ format-underline=#ffbb00
 [module/aur-update]
 type = custom/script
 exec = ~/.config/polybar/aur-update.sh
-interval = 600
+interval = 500
 
 format-prefix =  AUR:
 format-underline = #cf8f42
