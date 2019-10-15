@@ -433,4 +433,4 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #------ IMPORTANT	 ---------
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q 	#unmutes. Previously not working
-
+# windows git try
